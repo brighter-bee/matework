@@ -11,7 +11,7 @@
 {% for p in persons %}
     {{ p.name }}
     <ul>
-        {% for s in p.skill_set.all %}
+        {% for s in p.skills.all %}
             {{ s }}
         {% endfor %}
     </ul>
