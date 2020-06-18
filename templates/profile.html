@@ -8,7 +8,15 @@
 </head>
 <body>
 
-<h1>Matework</h1>
+
+<h2>Profile for {{ person.name }}:</h2>
+{% for s in person.skills.all %}
+    {{ s }}
+{% endfor %}
+
+<br>
+
+<h3>Recommended mentors:</h3>
 
 {% for p in persons %}
     {{ p.name }}

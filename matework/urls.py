@@ -19,5 +19,6 @@ import profiles.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', profiles.views.index)
+    path('', profiles.views.index),
+    path('<int:person_id>', profiles.views.person),
 ]
