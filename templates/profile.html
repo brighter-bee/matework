@@ -52,8 +52,9 @@
 </head>
 <body>
 
-
-<h2>Profile for {{ person.name }}:</h2>
+<h1>Profile</h1>
+<h2>Name: {{ person.name }}</h2>
+<h2>Location: {{ person.location }}</h2>
 {% for s in person.skills.all %}
     {{ s }}
 {% endfor %}
@@ -63,25 +64,29 @@
 {{ request.user.username }}<br>
 
 {% if allow_edit %}
-<form method="POST" class="form-group">
-    {% csrf_token %}
-    <label>
-        Location
-        <input placeholder="Enter your location">
-    </label>
-    <label>
-        Skills
-        <input type="text" id="myInput" onkeyup="searchFieldFilter()" placeholder="Search for names.." title="Type in a name"
-               autocomplete="off" spellcheck="false">
-    </label>
-    <ul id="myUL">
-        {% for s in skills %}
-            <li onmousedown="clickSearchItem(this)">{{ s.name }}</li>
-        {% endfor %}
-    </ul>
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        <label>
+            Name
+            <input placeholder="Enter your Name" name="name">
+        </label>
+        <label>
+            Location
+            <input placeholder="Enter your location" name="location">
+        </label>
+        <label>
+            Skills
+            <input type="text" id="myInput" onkeyup="searchFieldFilter()" placeholder="Search for names.." title="Type in a name"
+                   autocomplete="off" spellcheck="false">
+        </label>
+        <ul id="myUL">
+            {% for s in skills %}
+                <li onmousedown="clickSearchItem(this)">{{ s.name }}</li>
+            {% endfor %}
+        </ul>
 
-    <button type="submit" class="btn btn-success">Save</button>
-</form>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
 {% endif %}
 
 <h3>Recommended mentors:</h3>
