@@ -1,0 +1,13 @@
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+
+<form method="post" class="from-group" style="width: 300px;">
+    {% csrf_token %}
+        {% load material_form %}
+    {% form form=form %}{% endform %}
+    <p>
+        Don't have an account? Create one
+        <a href="/signup">here</a>
+    </p>
+    <button type="submit" class="btn btn-success">Login</button>
+</form>

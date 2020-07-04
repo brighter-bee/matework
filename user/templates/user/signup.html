@@ -1,0 +1,10 @@
+{% load crispy_forms_tags %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    {% load material_form %}
+    {% form form=form %}{% endform %}
+    <button type="submit" class="btn btn-success">Register</button>
+</form>

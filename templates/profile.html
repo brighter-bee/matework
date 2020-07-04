@@ -5,6 +5,50 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        #myUL {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #myUL li {
+            border: 1px solid #ddd;
+            background-color: white;
+            padding: 12px;
+            font-size: 18px;
+            color: black;
+            display: block
+        }
+
+        #myUL li:hover {
+            background-color: green;
+            border-radius: 3px;
+        }
+
+        /*#myInput:not(:focus) ~ #myUL {
+          display: none;
+        }*/
+
+        #myInput:not(:focus) ~ #myUL {
+            display: none;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -15,6 +59,30 @@
 {% endfor %}
 
 <br>
+
+{{ request.user.username }}<br>
+
+{% if allow_edit %}
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    <label>
+        Location
+        <input placeholder="Enter your location">
+    </label>
+    <label>
+        Skills
+        <input type="text" id="myInput" onkeyup="searchFieldFilter()" placeholder="Search for names.." title="Type in a name"
+               autocomplete="off" spellcheck="false">
+    </label>
+    <ul id="myUL">
+        {% for s in skills %}
+            <li onmousedown="clickSearchItem(this)">{{ s.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endif %}
 
 <h3>Recommended mentors:</h3>
 
@@ -27,5 +95,28 @@
     </ul>
 {% endfor %}
 
+<script>
+    function searchFieldFilter() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toLowerCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            txtValue = li[i].textContent;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function clickSearchItem(e) {
+        input = document.getElementById("myInput");
+        input.value = e.innerHTML;
+        console.log(input);
+    }
+</script>
 </body>
 </html>
