@@ -51,32 +51,47 @@
 
 </head>
 <body>
-
+Logged in user: {{ request.user.username }}<br>
 <h1>Profile</h1>
 <h2>Name: {{ person.name }}</h2>
 <h2>Location: {{ person.location }}</h2>
-{% for s in person.skills.all %}
-    {{ s }}
-{% endfor %}
+<h2>Skills:
+    {% for s in person.skills.all %}
+        {{ s }}
+    {% endfor %}
+</h2>
 
 <br>
 
-{{ request.user.username }}<br>
-
+<script>
+    function edit() {
+        const form = document.querySelector("form");
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        }
+    }
+</script>
 {% if allow_edit %}
-    <form method="POST" class="form-group">
+    <button onclick="edit()">Edit</button>
+    <form method="POST" class="form-group" style="display: none;">
         {% csrf_token %}
         <label>
             Name
-            <input placeholder="Enter your Name" name="name">
+            <input value="{{ person.name }}" name="name">
         </label>
+        <br>
         <label>
             Location
-            <input placeholder="Enter your location" name="location">
+            <input value="{{ person.location }}" name="location">
         </label>
+        <br>
+        Skills
+        {% for s in person.skills.all %}
+            {{ s }}
+        {% endfor %}
         <label>
-            Skills
-            <input type="text" id="myInput" onkeyup="searchFieldFilter()" placeholder="Search for names.." title="Type in a name"
+            Skill
+            <input placeholder="Enter your skill" name="skill" type="text" id="myInput" onkeyup="searchFieldFilter()"
                    autocomplete="off" spellcheck="false">
         </label>
         <ul id="myUL">

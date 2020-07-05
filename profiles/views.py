@@ -22,8 +22,17 @@ def profile(request, request_username):
     if request.method == "POST":
         name = request.POST['name']
         location = request.POST['location']
+        skill = request.POST['skill']
+        skill_exist = len(Skill.objects.all().filter(name__iexact=skill))
+        if not skill_exist:
+            skill = Skill(name=skill)
+            skill.save()
+            print(skill.id)
+        else:
+            skill = Skill.objects.all().get(name__iexact=skill)
         user_id = get_object_or_404(User, username=request_username)
         Person.objects.filter(user=user_id).update(name=name, location=location)
+        Person.objects.get(user=user_id).skills.add(skill.id)
     user_id = get_object_or_404(User, username=request_username)
     person_ = get_object_or_404(Person, user=user_id)
     skills = Skill.objects.all()
