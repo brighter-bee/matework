@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -72,6 +74,7 @@ Logged in user: {{ request.user.username }}<br>
     }
 </script>
 {% if allow_edit %}
+    {% load material_form %}
     <button onclick="edit()">Edit</button>
     <form method="POST" class="form-group" style="display: none;">
         {% csrf_token %}
