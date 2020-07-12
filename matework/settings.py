@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     'user.apps.UserConfig',
     'material',
+    'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
